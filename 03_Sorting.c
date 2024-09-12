@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Function to swap two elements
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+// 1. Bubble Sort
 void bubbleSort(int arr[], int n)
 {
     for (int i = 0; i < n - 1; i++)
@@ -9,20 +18,20 @@ void bubbleSort(int arr[], int n)
         {
             if (arr[j] > arr[j + 1])
             {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+                swap(&arr[j], &arr[j + 1]);
             }
         }
     }
 }
 
+// 2. Insertion Sort
 void insertionSort(int arr[], int n)
 {
     for (int i = 1; i < n; i++)
     {
         int key = arr[i];
         int j = i - 1;
+
         while (j >= 0 && arr[j] > key)
         {
             arr[j + 1] = arr[j];
@@ -32,12 +41,14 @@ void insertionSort(int arr[], int n)
     }
 }
 
+// 3. Merge Sort
 void merge(int arr[], int left, int mid, int right)
 {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
     int L[n1], R[n2];
+
     for (int i = 0; i < n1; i++)
         L[i] = arr[left + i];
     for (int j = 0; j < n2; j++)
@@ -85,24 +96,7 @@ void mergeSort(int arr[], int left, int right)
     }
 }
 
-void selectionSort(int arr[], int n)
-{
-    for (int i = 0; i < n - 1; i++)
-    {
-        int min_idx = i;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (arr[j] < arr[min_idx])
-            {
-                min_idx = j;
-            }
-        }
-        int temp = arr[min_idx];
-        arr[min_idx] = arr[i];
-        arr[i] = temp;
-    }
-}
-
+// Function to print an array
 void printArray(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -114,7 +108,7 @@ void printArray(int arr[], int n)
 
 int main()
 {
-    int arr[] = {64, 25, 12, 22, 11};
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
     int n = sizeof(arr) / sizeof(arr[0]);
     int choice;
 
@@ -125,7 +119,6 @@ int main()
     printf("1. Bubble Sort\n");
     printf("2. Insertion Sort\n");
     printf("3. Merge Sort\n");
-    printf("4. Selection Sort\n");
     printf("Enter your choice: ");
     scanf("%d", &choice);
 
@@ -142,10 +135,6 @@ int main()
     case 3:
         mergeSort(arr, 0, n - 1);
         printf("Sorted array using Merge Sort: \n");
-        break;
-    case 4:
-        selectionSort(arr, n);
-        printf("Sorted array using Selection Sort: \n");
         break;
     default:
         printf("Invalid choice! Please choose a valid option.\n");
