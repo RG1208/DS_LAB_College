@@ -6,7 +6,6 @@
 int stack[MAX];
 int top = -1;
 
-// Function to push an element onto the stack
 void push(int value)
 {
     if (top == MAX - 1)
@@ -21,7 +20,6 @@ void push(int value)
     }
 }
 
-// Function to pop an element from the stack
 void pop()
 {
     if (top == -1)
@@ -35,7 +33,6 @@ void pop()
     }
 }
 
-// Function to peek the top element of the stack
 void peek()
 {
     if (top == -1)
@@ -48,7 +45,6 @@ void peek()
     }
 }
 
-// Function to traverse and display the stack elements
 void traverse()
 {
     if (top == -1)

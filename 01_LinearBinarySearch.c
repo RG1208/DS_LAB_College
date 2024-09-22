@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-// Linear Search
 int linearSearch(int arr[], int n, int key)
 {
     for (int i = 0; i < n; i++)
@@ -13,7 +12,6 @@ int linearSearch(int arr[], int n, int key)
     return -1;
 }
 
-// Binary Search
 int binarySearch(int arr[], int left, int right, int key)
 {
     while (left <= right)
