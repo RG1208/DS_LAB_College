@@ -1,4 +1,5 @@
-#include <stdio.h> #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct Student
@@ -20,14 +21,21 @@ struct Node *head = NULL;
 void insertAtPosition(struct Student student, int position)
 {
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return;
+    }
     newNode->data = student;
     newNode->next = NULL;
+
     if (position == 1)
     {
         newNode->next = head;
         head = newNode;
         return;
     }
+
     struct Node *cur = head;
     int count = 1;
     while (cur != NULL && count < position - 1)
@@ -35,12 +43,14 @@ void insertAtPosition(struct Student student, int position)
         cur = cur->next;
         count++;
     }
-    if (cur = NULL)
+
+    if (cur == NULL)
     {
         printf("Invalid position\n");
         free(newNode);
         return;
     }
+
     newNode->next = cur->next;
     cur->next = newNode;
 }
@@ -48,13 +58,14 @@ void insertAtPosition(struct Student student, int position)
 void traversal()
 {
     struct Node *cur = head;
-    while (cur = NULL)
+    while (cur != NULL)
     {
         printf("Name: %s, Section: %c, Roll No: %d, Branch: %s\n",
                cur->data.name, cur->data.section, cur->data.roll_no, cur->data.branch);
         cur = cur->next;
     }
 }
+
 int main()
 {
     struct Student s1 = {"Rachit", 'A', 44, "AI-ML"};
@@ -65,5 +76,6 @@ int main()
     insertAtPosition(s2, 2);
     insertAtPosition(s3, 2);
     traversal();
+
     return 0;
 }
