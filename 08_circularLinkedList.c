@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 struct College
 {
     char name[50];
@@ -18,33 +19,34 @@ struct College *createNode(char *name, char *location, int year)
     newNode->next = NULL;
     return newNode;
 }
+
 void insertAtFront(struct College **head, char *name, char *location, int year)
 {
     struct College *newNode = createNode(name, location, year);
     if (*head == NULL)
     {
         *head = newNode;
-        newNode->next = head;
+        newNode->next = *head; // Point to itself to maintain circularity
     }
     else
     {
         struct College *temp = *head;
         while (temp->next != *head)
         {
-
-            temp - temp->next;
-            newNode->next = *head;
-            temp->next = newNode;
-            *head = newNode;
+            temp = temp->next; // Move to the last node
         }
-        printf("College inserted at the front: %s\n", name);
+        newNode->next = *head; // Point new node to the current head
+        temp->next = newNode;  // Point the last node to the new node
+        *head = newNode;       // Update head to new node
     }
+    printf("College inserted at the front: %s\n", name);
 }
+
 void deleteAtEnd(struct College **head)
 {
     if (*head == NULL)
     {
-        printf("List is empty, No deletion performed.\n");
+        printf("List is empty, no deletion performed.\n");
         return;
     }
     if ((*head)->next == *head)
@@ -62,15 +64,14 @@ void deleteAtEnd(struct College **head)
             prev = temp;
             temp = temp->next;
         }
-
         prev->next = *head;
         printf("College deleted from the end: %s\n", temp->name);
         free(temp);
     }
 }
+
 void displayList(struct College *head)
 {
-
     if (head == NULL)
     {
         printf("The list is empty.\n");
@@ -82,18 +83,23 @@ void displayList(struct College *head)
     {
         printf("College Name: %s, Location: %s, Established Year: %d\n", temp->name, temp->location, temp->establishedYear);
         temp = temp->next;
-    } while (temp = head);
+    } while (temp != head);
 }
+
 int main()
 {
     struct College *head = NULL;
     insertAtFront(&head, "VIPS", "Pitampura", 2000);
     insertAtFront(&head, "MAIT", "Rithala", 1999);
     insertAtFront(&head, "BPIT", "Rohini", 2007);
+
     printf("\nCircular Linked List after insertions: \n");
     displayList(head);
+
     deleteAtEnd(&head);
+
     printf("\nCircular Linked List after deletion: \n");
     displayList(head);
+
     return 0;
 }
